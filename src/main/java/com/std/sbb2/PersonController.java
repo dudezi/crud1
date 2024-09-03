@@ -35,16 +35,36 @@ public class PersonController {
     @GetMapping("/person/remove")
     @ResponseBody
     public String removePerson (@RequestParam ("id") int id) {
-        Person p = null;
-        for (int i = 0; i < people.size(); i++) {
-            if (people.get(i).getId() == id) {
-                p = people.get(i);
-            }
-        }
+        Person p = _findByPerson(id);
+
         if (p == null) {
             return id + "번 사람이 존재하지 않습니다.";
         }
         people.remove(p);
         return id + "번 사람이 삭제되었습니다.";
     }
+
+    @GetMapping("/person/modify")
+    @ResponseBody
+    public String modifyPerson (@RequestParam ("id") int id, @RequestParam("name") String name, @RequestParam("age") int age) {
+        Person p = _findByPerson(id);
+
+        if (p == null) {
+            return id + "번 사람이 존재하지 않습니다.";
+        }
+        people.get(id - 1).setName(name);
+        people.get(id - 1).setAge(age);
+        return id + "번 사람이 수정되었습니다.";
+    }
+
+    private Person _findByPerson (int id) {
+        Person p = null;
+        for (int i = 0; i < people.size(); i++) {
+            if (people.get(i).getId() == id) {
+                p = people.get(i);
+            }
+        }
+        return p;
+    }
 }
+
