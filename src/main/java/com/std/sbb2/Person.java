@@ -3,18 +3,17 @@ package com.std.sbb2;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@AllArgsConstructor
+@ToString
 @Getter
 @Setter
 public class Person {
-    private int lastId = 0;
     private int id;
     private String name;
     private int age;
 
-    Person (String name, int age) {
-        lastId++;
+    public Person(int lastId, String name, int age) {
         this.id = lastId;
         this.name = name;
         this.age = age;
