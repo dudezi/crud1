@@ -28,7 +28,23 @@ public class PersonController {
 
     @GetMapping("/person/people")
     @ResponseBody
-    public List<Person> showPeople () {
+    public List<Person> showPerson () {
         return people;
+    }
+
+    @GetMapping("/person/remove")
+    @ResponseBody
+    public String removePerson (@RequestParam ("id") int id) {
+        Person p = null;
+        for (int i = 0; i < people.size(); i++) {
+            if (people.get(i).getId() == id) {
+                p = people.get(i);
+            }
+        }
+        if (p == null) {
+            return id + "번 사람이 존재하지 않습니다.";
+        }
+        people.remove(p);
+        return id + "번 사람이 삭제되었습니다.";
     }
 }
